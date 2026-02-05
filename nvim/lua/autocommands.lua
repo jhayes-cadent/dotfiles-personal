@@ -1,5 +1,17 @@
 -- See `:help lua-guide-autocommands`
 
+-- Suppress E211 for oil:// buffers (stale after tmux detach/reattach)
+vim.api.nvim_create_autocmd('FileChangedShell', {
+  pattern = 'oil://*',
+  callback = function(args)
+    -- Silently delete the stale oil buffer instead of showing E211
+    vim.schedule(function()
+      pcall(vim.api.nvim_buf_delete, args.buf, { force = true })
+    end)
+    return true -- Suppress the default E211 message
+  end,
+})
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`

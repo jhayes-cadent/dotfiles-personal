@@ -10,6 +10,9 @@ vim.keymap.set('v', '<leader>lf', vim.lsp.buf.format, { remap = false })
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- Close all other windows and quit without saving
+vim.keymap.set('n', '<leader>qa', '<cmd>only | q!<CR>', { desc = 'Close other windows and [Q]uit [A]ll' })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
