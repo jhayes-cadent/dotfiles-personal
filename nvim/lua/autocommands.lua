@@ -12,6 +12,26 @@ vim.api.nvim_create_autocmd('FileChangedShell', {
   end,
 })
 
+-- Auto-change window-local directory to current buffer's directory (like autochdir),
+-- but skip oil:// buffers so Oil works correctly.
+vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
+  desc = 'Set lcd to buffer directory (autochdir replacement, oil-safe)',
+  group = vim.api.nvim_create_augroup('oil-safe-autochdir', { clear = true }),
+  callback = function()
+    local bufname = vim.api.nvim_buf_get_name(0)
+    local dir
+    if bufname:match '^oil://' then
+      -- Extract the real path from oil:// URI
+      dir = bufname:gsub('^oil://', '')
+    else
+      dir = vim.fn.expand '%:p:h'
+    end
+    if dir and dir ~= '' and vim.fn.isdirectory(dir) == 1 then
+      vim.cmd.lcd(dir)
+    end
+  end,
+})
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`

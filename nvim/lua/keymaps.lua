@@ -31,6 +31,21 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
+-- Open Oil file explorer
+vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = '[O]il file explorer' })
+
+-- ws = [W]idth [S]hrink: shrink active window to 1/5 terminal width
+vim.keymap.set('n', '<leader>ws', function()
+  local width = math.floor(vim.o.columns / 5)
+  vim.cmd('vertical resize ' .. width)
+end, { desc = '[W]idth [S]hrink to 1/5 width' })
+
+-- hs = [H]eight [S]hrink: shrink active window to 1/5 terminal height
+vim.keymap.set('n', '<leader>hs', function()
+  local height = math.floor(vim.o.lines / 5)
+  vim.cmd('resize ' .. height)
+end, { desc = '[H]eight [S]hrink to 1/5 height' })
+
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
