@@ -35,7 +35,7 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = '[O]il file explorer' })
 
 -- ws = [W]idth [S]hrink: shrink active window to 1/5 terminal width
-vim.keymap.set('n', '<leader>ws', function()
+vim.keymap.set('n', '<leader>Ws', function()
   local width = math.floor(vim.o.columns / 5)
   vim.cmd('vertical resize ' .. width)
 end, { desc = '[W]idth [S]hrink to 1/5 width' })
